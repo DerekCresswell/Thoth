@@ -9,7 +9,11 @@ Static HTML generation using C++.
 * Remove str content and replace with a no tag element
 * allow linking CSS
 * ability to add classes and such to render elements in a chained fashion.
-* Allow specifying depth
+* Allow specifying depth, tabs or spaces
 * Decide on commenting scheme for cpp
 * Decide between char* and strings
 * Clean up pointers
+
+## Build
+
+`g++ -std=c++17`
