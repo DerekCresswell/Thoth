@@ -13,6 +13,7 @@ Static HTML generation using C++.
 * Decide on commenting scheme for cpp
 * Decide between char* and strings
 * Clean up pointers
+* Debugging mode where comments appear before components
 
 ## Build
 

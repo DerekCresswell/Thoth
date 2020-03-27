@@ -1,38 +1,78 @@
 
-#include "RenderElement.h"
+#include "RenderElement.hpp"
 
-RenderElement::RenderElement(const char* tag, const char* contentStr, RenderElement *contentElm)
-    : tag(tag), contentStr(contentStr), contentElm(contentElm) {}
+namespace Thoth {
 
-bool RenderElement::RenderInto(std::stringstream& outStrm, int depth) {
+    /* Public */
 
-    // Internal stream
-    std::stringstream intStrm;
+    // Constructs a RenderElement
+    RenderElement::RenderElement(std::string tag)
+        : tag(tag) {}
 
-    // Whitespace buffer
-    // Content is inserted one level farther than the tags
-    std::string tagSpace = InsertDepth(depth);
-    std::string contentSpace = InsertDepth(depth + 1);
+    // Constructs a RenderElement with content
+    RenderElement::RenderElement(std::string tag, contentType content) 
+        : tag(tag), content(content) {}
 
-    // Insert the tag
-    intStrm << tagSpace << "<" << tag << ">\n";
+    // Sets the class of the Element
+    // Will be turned into vectors later
+    void RenderElement::AddClass(std::string classes) {
 
-    intStrm << contentSpace << contentStr << "\n";
+        this->classes = classes;
 
-    // Render child elements if there are any
-    if(contentElm != nullptr)
-        contentElm->RenderInto(intStrm, ++depth);
+    }
 
-    // Close the tag and output
-    intStrm << tagSpace << "</" << tag << ">\n";
-    outStrm << intStrm.str();
+    /* Protected */
 
-    return true;
+    // Renders the Element as HTML
+    std::stringstream RenderElement::RenderOutput(IndentData indentData) {
 
-}
+        // the stream to render into
+        std::stringstream strm;
 
-std::string RenderElement::InsertDepth(int depth) {
+        // Setup indents
+        std::string tagIndent = GetIndent(indentData);
+        indentData.depth++;
+        std::string contentIndent = GetIndent(indentData);
 
-    return std::string(depth * 4, ' ');
+        // Apply tag
+        strm << tagIndent << "<" << tag;
+
+        // Apply classes if they exist
+        if(classes.size() > 0) {
+
+            strm << " class=\"" << classes << "\"";
+
+        }
+
+        // Close the tag
+        strm << ">\n";
+
+        // Insert content
+        if(std::string* contentStr = std::get_if<std::string>(&content)) {
+
+            strm << contentIndent << *contentStr << "\n";
+
+        // How does get_if work if it's a pointer?
+        } else {
+
+            RenderElement* contentElm = std::get<RenderElement*>(content);
+            contentElm->RenderOutput(strm, indentData);
+
+        }
+
+        // Close tag
+        strm << tagIndent << "</" << tag << ">\n";
+
+        return strm;
+
+    }
+
+    // Renders the Element as HTML
+    void RenderElement::RenderOutput(std::stringstream& strm, IndentData indentData) {
+
+        // Calls RenderOutput to generate stringstream to insert
+        strm << RenderOutput(indentData).str();
+
+    }
 
 }
