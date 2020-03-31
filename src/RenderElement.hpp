@@ -1,9 +1,11 @@
 
 #pragma once
 
+#include <algorithm>
 #include <sstream>
 #include <string>
 #include <variant>
+#include <vector>
 
 #include "IndentData.hpp"
 
@@ -21,7 +23,7 @@ namespace Thoth {
      * @TODO
      *  Convert classes into vector and add functions for get / set.
      *  Add other similar identifiers.
-     *  Make content a vector.
+     *  Adds checks for delimiters in AddClass strings
      *  Make functions like addclass return to element for chaining.
      *
      */
@@ -39,8 +41,14 @@ namespace Thoth {
         // Constructor that takes content immediately
         RenderElement(std::string tag, contentType content);
 
-        // Adds a class to this element
-        void AddClass(std::string classes);
+        // Adds a class (or classes) to this element
+        void AddClass(std::string toAdd);
+        void AddClass(std::vector<std::string> toAdd);
+
+        // Removes a class (or classes) from this element
+        // If a class is not present it is ignored
+        void RemoveClass(std::string toRem);
+        void RemoveClass(std::vector<std::string> toRem);
 
     // Protected member variables
     protected:
@@ -52,7 +60,7 @@ namespace Thoth {
         contentType content;
 
         // The classes added to the element's tag
-        std::string classes;
+        std::vector<std::string> classes;
 
     // Protected functions
     protected:

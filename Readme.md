@@ -14,6 +14,7 @@ Static HTML generation using C++.
 * Decide between char* and strings
 * Clean up pointers
 * Debugging mode where comments appear before components
+* Replace stringstreams with ostream?
 
 ## Build
 

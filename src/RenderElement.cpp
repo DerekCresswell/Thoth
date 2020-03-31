@@ -13,11 +13,31 @@ namespace Thoth {
     RenderElement::RenderElement(std::string tag, contentType content) 
         : tag(tag), content(content) {}
 
-    // Sets the class of the Element
-    // Will be turned into vectors later
-    void RenderElement::AddClass(std::string classes) {
+    // Adds a class to the classes of this element
+    void RenderElement::AddClass(std::string toAdd) {
 
-        this->classes = classes;
+        classes.push_back(toAdd);
+
+    }
+
+    void RenderElement::AddClass(std::vector<std::string> toAdd) {
+
+        classes.insert(classes.end(), toAdd.begin(), toAdd.end());
+
+    }
+
+    // Removes a class from this element
+    void RenderElement::RemoveClass(std::string toRem) {
+
+        classes.erase(std::remove(classes.begin(), classes.end(), toRem), classes.end());
+
+    }
+
+    void RenderElement::RemoveClass(std::vector<std::string> toRem) {
+
+        for(std::string str : toRem) {
+            classes.erase(std::remove(classes.begin(), classes.end(), str), classes.end());
+        }
 
     }
 
@@ -40,7 +60,13 @@ namespace Thoth {
         // Apply classes if they exist
         if(classes.size() > 0) {
 
-            strm << " class=\"" << classes << "\"";
+            strm << " class=\"";
+
+            // Remove final space
+            for(std::string str : classes)
+                strm << str << " ";
+
+            strm << "\"";
 
         }
 
