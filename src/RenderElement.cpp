@@ -16,13 +16,16 @@ namespace Thoth {
     // Adds a class to the classes of this element
     void RenderElement::AddClass(std::string toAdd) {
 
-        classes.push_back(toAdd);
+        if(std::find(classes.begin(), classes.end(), toAdd) == classes.end())
+            classes.push_back(toAdd);
 
     }
 
     void RenderElement::AddClass(std::vector<std::string> toAdd) {
 
-        classes.insert(classes.end(), toAdd.begin(), toAdd.end());
+        for(std::string str : toAdd) {
+            AddClass(str);
+        }
 
     }
 
@@ -36,7 +39,7 @@ namespace Thoth {
     void RenderElement::RemoveClass(std::vector<std::string> toRem) {
 
         for(std::string str : toRem) {
-            classes.erase(std::remove(classes.begin(), classes.end(), str), classes.end());
+            RemoveClass(str);
         }
 
     }
