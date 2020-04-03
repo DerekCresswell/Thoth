@@ -14,33 +14,41 @@ namespace Thoth {
         : tag(tag), content(content) {}
 
     // Adds a class to the classes of this element
-    void RenderElement::AddClass(std::string toAdd) {
+    RenderElement& RenderElement::AddClass(std::string toAdd) {
 
         if(std::find(classes.begin(), classes.end(), toAdd) == classes.end())
             classes.push_back(toAdd);
 
+        return *this;
+
     }
 
-    void RenderElement::AddClass(std::vector<std::string> toAdd) {
+    RenderElement& RenderElement::AddClass(std::vector<std::string> toAdd) {
 
         for(std::string str : toAdd) {
             AddClass(str);
         }
 
+        return *this;
+
     }
 
     // Removes a class from this element
-    void RenderElement::RemoveClass(std::string toRem) {
+    RenderElement& RenderElement::RemoveClass(std::string toRem) {
 
         classes.erase(std::remove(classes.begin(), classes.end(), toRem), classes.end());
 
+        return *this;
+
     }
 
-    void RenderElement::RemoveClass(std::vector<std::string> toRem) {
+    RenderElement& RenderElement::RemoveClass(std::vector<std::string> toRem) {
 
         for(std::string str : toRem) {
             RemoveClass(str);
         }
+
+        return *this;
 
     }
 
