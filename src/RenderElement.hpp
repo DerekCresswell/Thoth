@@ -2,6 +2,7 @@
 #pragma once
 
 #include <algorithm>
+#include <map>
 #include <sstream>
 #include <string>
 #include <variant>
@@ -17,7 +18,7 @@ namespace Thoth {
     /*
      *
      * RenderElement : 
-     * Defines an element of html that can be rendered by
+     * Defines an element of HMTL that can be rendered by
      * a RenderComponent.
      * 
      * @TODO
@@ -48,11 +49,24 @@ namespace Thoth {
         RenderElement& RemoveClass(const std::string& toRem);
         RenderElement& RemoveClass(const std::vector<std::string>& toRem);
 
+        // Adds the style to this element's inline style
+        // Will not add the element if the property is already defined
+        // unless 'force' is true
+        RenderElement& AddStyle(const std::string& property, const std::string& value,
+            bool force = false);
+        
+        // Removes the inline style from an element using the property
+        RenderElement& RemoveStyle(const std::string& property);
+
     // Protected member variables
     protected:
 
         // The HTML tag of this element
         std::string tag;
+
+        // Defines the inline styling of this element
+        // in the form of <property, value>
+        std::map<std::string, std::string> styles;
 
         // The content inserted into the element
         contentType content;

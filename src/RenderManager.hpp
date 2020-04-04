@@ -1,8 +1,7 @@
 
 #pragma once
 
-namespace Thoth
-{
+namespace Thoth {
     /*
      *
      * RenderManager :
@@ -12,8 +11,6 @@ namespace Thoth
     class RenderManager {
 
     public:
-
-
 
     };
 

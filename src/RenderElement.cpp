@@ -52,6 +52,41 @@ namespace Thoth {
 
     }
 
+    // Adds an inline style to this element
+    RenderElement& RenderElement::AddStyle(const std::string& property, const std::string& value,
+        bool force) {
+
+        auto it = styles.find(property);
+
+        // If the property does not exist we can add the style
+        if(it == styles.end()) {
+            styles[property] = value;
+            return *this;
+        }
+
+        // If we are not forcing there is nothing left to do
+        if(!force)
+            return *this;
+
+        // Otherwise we set the property to the new value
+        styles[property] = value;
+
+        return *this;
+
+    }
+
+    // Removes an inline style from this element
+    RenderElement& RenderElement::RemoveStyle(const std::string& property) {
+
+        auto it = styles.find(property);
+        
+        if(it != styles.end())
+            styles.erase(it);
+
+        return *this;
+
+    }
+
     /* Protected */
 
     // Renders the Element as HTML
@@ -68,14 +103,32 @@ namespace Thoth {
         // Apply tag
         strm << tagIndent << "<" << tag;
 
+        // @TODO
+        // These are beginning to look similar
+        // Create a helper function that takes tag, list, and
+        // a lambda for inserting each element
+
         // Apply classes if they exist
         if(classes.size() > 0) {
 
             strm << " class=\"";
 
-            // Remove final space
+            // @TODO Remove final space
             for(std::string str : classes)
                 strm << str << " ";
+
+            strm << "\"";
+
+        }
+
+        // Apply styles if they exist
+        if(styles.size() > 0) {
+
+            strm << " style=\"";
+
+            // @TODO Remove final space
+            for(auto style : styles)
+                strm << style.first << ":" << style.second << "; ";
 
             strm << "\"";
 

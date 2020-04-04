@@ -40,7 +40,7 @@ namespace Thoth {
 
         // Adds an element to the render list at the given position
         // Defaults to the end of the list
-        void AddElement(RenderElement* elmToAdd, int position = -1);
+        RenderComponent& AddElement(RenderElement* elmToAdd, int position = -1);
 
         // Renders all of the elements in the render list
         // as a stringstream

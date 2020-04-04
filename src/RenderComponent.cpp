@@ -9,7 +9,7 @@ namespace Thoth {
     RenderComponent::RenderComponent() {}
 
     // Adds an element to the render list a given position
-    void RenderComponent::AddElement(RenderElement* elmToAdd, int position) {
+    RenderComponent& RenderComponent::AddElement(RenderElement* elmToAdd, int position) {
 
         // See if a position was specified
         if(position < 0) {
@@ -21,6 +21,8 @@ namespace Thoth {
             elements.insert(elements.begin() + position, elmToAdd);
 
         }
+
+        return *this;
 
     }
 
