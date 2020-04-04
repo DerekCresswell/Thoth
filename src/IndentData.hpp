@@ -28,4 +28,4 @@ namespace Thoth {
     // Returns a string containing the indent string
     std::string GetIndent(IndentData indentData);
 
-}
+} // namespace Thoth

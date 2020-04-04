@@ -6,15 +6,15 @@ namespace Thoth {
     /* Public */
 
     // Constructs a RenderElement
-    RenderElement::RenderElement(std::string tag)
+    RenderElement::RenderElement(const std::string& tag)
         : tag(tag) {}
 
     // Constructs a RenderElement with content
-    RenderElement::RenderElement(std::string tag, contentType content) 
+    RenderElement::RenderElement(const std::string& tag, const contentType& content) 
         : tag(tag), content(content) {}
 
     // Adds a class to the classes of this element
-    RenderElement& RenderElement::AddClass(std::string toAdd) {
+    RenderElement& RenderElement::AddClass(const std::string& toAdd) {
 
         if(std::find(classes.begin(), classes.end(), toAdd) == classes.end())
             classes.push_back(toAdd);
@@ -23,7 +23,7 @@ namespace Thoth {
 
     }
 
-    RenderElement& RenderElement::AddClass(std::vector<std::string> toAdd) {
+    RenderElement& RenderElement::AddClass(const std::vector<std::string>& toAdd) {
 
         for(std::string str : toAdd) {
             AddClass(str);
@@ -34,7 +34,7 @@ namespace Thoth {
     }
 
     // Removes a class from this element
-    RenderElement& RenderElement::RemoveClass(std::string toRem) {
+    RenderElement& RenderElement::RemoveClass(const std::string& toRem) {
 
         classes.erase(std::remove(classes.begin(), classes.end(), toRem), classes.end());
 
@@ -42,7 +42,7 @@ namespace Thoth {
 
     }
 
-    RenderElement& RenderElement::RemoveClass(std::vector<std::string> toRem) {
+    RenderElement& RenderElement::RemoveClass(const std::vector<std::string>& toRem) {
 
         for(std::string str : toRem) {
             RemoveClass(str);
@@ -112,4 +112,4 @@ namespace Thoth {
 
     }
 
-}
+} // namespace Thoth

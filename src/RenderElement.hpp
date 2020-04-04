@@ -21,10 +21,8 @@ namespace Thoth {
      * a RenderComponent.
      * 
      * @TODO
-     *  Convert classes into vector and add functions for get / set.
      *  Add other similar identifiers.
      *  Adds checks for delimiters in AddClass strings
-     *  Make functions like addclass return to element for chaining.
      *
      */
     class RenderElement {
@@ -36,19 +34,19 @@ namespace Thoth {
     public:
 
         // Main constructor
-        explicit RenderElement(std::string tag);
+        explicit RenderElement(const std::string& tag);
 
         // Constructor that takes content immediately
-        RenderElement(std::string tag, contentType content);
+        RenderElement(const std::string& tag, const contentType& content);
 
         // Adds a class (or classes) to this element
-        RenderElement& AddClass(std::string toAdd);
-        RenderElement& AddClass(std::vector<std::string> toAdd);
+        RenderElement& AddClass(const std::string& toAdd);
+        RenderElement& AddClass(const std::vector<std::string>& toAdd);
 
         // Removes a class (or classes) from this element
         // If a class is not present it is ignored
-        RenderElement& RemoveClass(std::string toRem);
-        RenderElement& RemoveClass(std::vector<std::string> toRem);
+        RenderElement& RemoveClass(const std::string& toRem);
+        RenderElement& RemoveClass(const std::vector<std::string>& toRem);
 
     // Protected member variables
     protected:
@@ -80,4 +78,4 @@ namespace Thoth {
 
     };
 
-}
+} // namespace Thoth
