@@ -103,36 +103,19 @@ namespace Thoth {
         // Apply tag
         strm << tagIndent << "<" << tag;
 
-        // @TODO
-        // These are beginning to look similar
-        // Create a helper function that takes tag, list, and
-        // a lambda for inserting each element
-
         // Apply classes if they exist
-        if(classes.size() > 0) {
-
-            strm << " class=\"";
-
-            // @TODO Remove final space
-            for(std::string str : classes)
-                strm << str << " ";
-
-            strm << "\"";
-
-        }
+        if(classes.size() > 0)
+            strm << FormatAttributes("class", classes.begin(), classes.end(),
+                [](const std::string& str) {
+                return str;
+            });
 
         // Apply styles if they exist
-        if(styles.size() > 0) {
-
-            strm << " style=\"";
-
-            // @TODO Remove final space
-            for(auto style : styles)
-                strm << style.first << ":" << style.second << "; ";
-
-            strm << "\"";
-
-        }
+        if(styles.size() > 0)
+            strm << FormatAttributes("style", styles.begin(), styles.end(),
+                [](auto p) {
+                return p.first + ":" + p.second + ";";
+            });
 
         // Close the tag
         strm << ">\n";
@@ -162,6 +145,32 @@ namespace Thoth {
 
         // Calls RenderOutput to generate stringstream to insert
         strm << RenderOutput(indentData).str();
+
+    }
+
+    /* Private */
+
+    // Formats attributes and returns them as a string
+    // @TODO find out how to enforce that the lambda needs to return a string
+    template<class Iter, class Func>
+    std::string RenderElement::FormatAttributes(const std::string& atrName, Iter it1,
+        Iter it2, const Func& printFunc) {
+
+        std::stringstream strm;
+
+        // Insert the attribute name
+        strm << " " << atrName << "=\"";
+
+        // run the format function on each iterator except for the last
+        // Doing `it2 - 1` crashes if the iterator is from a map
+        // that makes this feel less clean but it works just fine
+        for(--it2; it1 != it2; it1++) {
+           strm << printFunc(*it1) << " ";
+        }
+        // Last iterator does not need a space after it
+        strm << printFunc(*it2) << "\"";
+
+        return strm.str();
 
     }
 

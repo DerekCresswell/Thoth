@@ -2,6 +2,7 @@
 #pragma once
 
 #include <algorithm>
+#include <functional>
 #include <map>
 #include <sstream>
 #include <string>
@@ -84,6 +85,15 @@ namespace Thoth {
         // Renders the element as HTML into a stringstream
         // Takes an IndentData to define the amount of indentation applied
         virtual void RenderOutput(std::stringstream& strm, IndentData indentData = NO_INDENT);
+
+    // Private functions
+    private:
+
+        // Prints out an attribute by using the function 'printF' on each
+        // element between 'begin' and 'end'
+        template<class iter, class func>
+        std::string FormatAttributes(const std::string& atrName, iter begin,
+            iter end, const func& printFunc);
 
     public:
     
