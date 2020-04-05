@@ -63,7 +63,7 @@ namespace Thoth {
     protected:
 
         // The HTML tag of this element
-        std::string tag;
+        const std::string tag;
 
         // Defines the inline styling of this element
         // in the form of <property, value>
