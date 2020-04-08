@@ -25,6 +25,7 @@ namespace Thoth {
      * @TODO
      *  Add other similar identifiers.
      *  Adds checks for delimiters in AddClass strings
+     *  Seperate content rendering into seperate function for easier overriding
      *
      */
     class RenderElement {
@@ -89,7 +90,7 @@ namespace Thoth {
     // Private functions
     private:
 
-        // Prints out an attribute by using the function 'printF' on each
+        // Prints out an attribute by using the function 'printFunc' on each
         // element between 'begin' and 'end'
         template<class iter, class func>
         std::string FormatAttributes(const std::string& atrName, iter begin,

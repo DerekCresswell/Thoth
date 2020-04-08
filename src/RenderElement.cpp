@@ -107,34 +107,46 @@ namespace Thoth {
         if(classes.size() > 0)
             strm << FormatAttributes("class", classes.begin(), classes.end(),
                 [](const std::string& str) {
-                return str;
-            });
+                    return str;
+                }
+            );
 
         // Apply styles if they exist
         if(styles.size() > 0)
             strm << FormatAttributes("style", styles.begin(), styles.end(),
                 [](auto p) {
-                return p.first + ":" + p.second + ";";
-            });
+                    return p.first + ":" + p.second + ";";
+                }
+            );
 
         // Close the tag
-        strm << ">\n";
+        strm << ">";
 
         // Insert content
+        bool hasContent = true;
         if(std::string* contentStr = std::get_if<std::string>(&content)) {
 
-            strm << contentIndent << *contentStr << "\n";
+            // If there is no content 'contentStr' will be an empty string
+            if(hasContent = (!contentStr->empty())) {
+                strm << "\n" << contentIndent << *contentStr << "\n";
+            }
 
-        // How does get_if work if it's a pointer?
+        } else if(RenderElement **contentElm = std::get_if<RenderElement*>(&content)) {
+
+            // A new line must be added since no content is only detected
+            // as a string
+            strm << "\n";
+            (*contentElm)->RenderOutput(strm, indentData);
+
         } else {
-
-            RenderElement* contentElm = std::get<RenderElement*>(content);
-            contentElm->RenderOutput(strm, indentData);
-
+            hasContent = false;
         }
 
         // Close tag
-        strm << tagIndent << "</" << tag << ">\n";
+        if(hasContent)
+            strm << tagIndent;
+
+        strm << "</" << tag << ">\n";
 
         return strm;
 
