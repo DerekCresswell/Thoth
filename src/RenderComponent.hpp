@@ -48,7 +48,7 @@ namespace Thoth {
 
         // Renders all of the elements in the render list
         // into a given stringstream
-        virtual void RenderOutput(std::stringstream& strm);
+        void RenderOutput(std::stringstream& strm);
 
         // Sets the indentation style of this component
         void SetIndentation(IndentStyle style, unsigned int size);

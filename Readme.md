@@ -11,6 +11,8 @@ Thoth aims to bring an easy to build and modify way of creating pages of HTML us
 The main goal is to allow for an easily iterchangable design when creating a basic website. For instance, you might use this when creating an API documentation site.\
 The generator does not limit what you want to add to your site, small changes between pages are a breeze. It also allows you to break it's own rules and build the entire page with one element.
 
+This library uses C++ 17.
+
 ## Design Model
 
 The model used when creating HTML with Thoth is based on an "atomic design" philosophy. It is not strict though, as stated [above](#introduction) you can break the rules.\
@@ -77,7 +79,7 @@ This was chosen due to the connection to writing and this project being made to 
     * Perhaps make in this or also a "RenderSuite" header that includes all the needed stuff for quick building
 * Remove str content and replace with a no tag element
 * allow linking CSS
-* Debugging mode where comments appear before components
+* Debugging mode where comments appear before components, make an ifdef or as statics if set by ui
 * Replace stringstreams with ostream?
 * Allow elements to be used as a "wrapper" for other groups
 * Get a visualization for the data module
@@ -86,3 +88,10 @@ This was chosen due to the connection to writing and this project being made to 
     * Add as examples
 * Have empty elements render on one line with no space
 * Allow for elements like br or img to render like "<xyz />"
+* Allow for comments placing (why would you manually need this but we will make it)
+* Caching
+    * Elements with no variable data cache the first time they are rendered
+    * Variable data elements will be cached once when the render manager is used
+    * Should elements cache within themselves or have a central storage in the manager?
+* Have renderer automatically link files / images from a dir to avoid hardcoded links
+* Since this uses variant, look into string_view for optimization

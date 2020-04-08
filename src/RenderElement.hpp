@@ -85,7 +85,7 @@ namespace Thoth {
 
         // Renders the element as HTML into a stringstream
         // Takes an IndentData to define the amount of indentation applied
-        virtual void RenderOutput(std::stringstream& strm, IndentData indentData = NO_INDENT);
+        void RenderOutput(std::stringstream& strm, IndentData indentData = NO_INDENT);
 
     // Private functions
     private:
