@@ -19,6 +19,7 @@ namespace Thoth {
      * @TODO
      *  Allow for more verbose adding / subtracting of elements
      *  Allow chaining those functions
+     *  Implicit constructor from single element?
      * 
      */
     class RenderComponent {

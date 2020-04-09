@@ -8,13 +8,20 @@ namespace Thoth {
     // Constructs a blank RenderManager
     RenderManager::RenderManager() {}
 
+    // Constructs RenderManager with a title
+    RenderManager::RenderManager(const std::string& title)
+        : title(title) {}
+
     // Renders the entire page into a given ostream
     void RenderManager::RenderOutput(std::ostream& strm) {
 
-        //@TODO Add html tags
+        strm << "<!doctype html>\n";
+        strm << "<html>\n\n";
 
         strm << RenderHead().str();
         strm << RenderBody().str();
+
+        strm << "\n</html>";
 
     }
 
@@ -27,6 +34,8 @@ namespace Thoth {
             headComponents.insert(headComponents.begin() + position, compToAdd);
         }
 
+        return *this;
+
     }
 
     // Adds a component to the body at a given position
@@ -38,22 +47,31 @@ namespace Thoth {
             bodyComponents.insert(bodyComponents.begin() + position, compToAdd);
         }
 
+        return *this;
+
     }
 
     /* Protected */
 
     // Renders the head as a stringstream
+    // @TODO
+    //   Perhaps this should be set up to take a 'head struct'
+    //   to allow for many managers to share mostly the same data
+    //   This would benefit from moving FormatAttributes out of Elm
     std::stringstream RenderManager::RenderHead() {
 
-        //@TODO Add tags
-
         std::stringstream strm;
+
+        strm << "<head>\n";
+        strm << "<title>" << title << "</title>\n";
 
         for(RenderComponent* rc : headComponents) {
 
             rc->RenderOutput(strm);
 
         }
+
+        strm << "\n</head>\n\n";
 
         return strm;
 
@@ -69,15 +87,17 @@ namespace Thoth {
     // Renders the body as a stringstream
     std::stringstream RenderManager::RenderBody() {
 
-        //@TODO Add tags
-
         std::stringstream strm;
+
+        strm << "<body>\n";
 
         for(RenderComponent* rc : bodyComponents) {
 
             rc->RenderOutput(strm);
 
         }
+
+        strm << "</body>\n";
 
         return strm;
 

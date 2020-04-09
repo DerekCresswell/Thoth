@@ -21,6 +21,8 @@ namespace Thoth {
      *    Maybe Head needs a custom class of component
      *    Or could be wise to set certain things inside of the
      *    manager directly
+     *  Add better data insertion for head / html elements
+     *  Create overload for head elements and streamline input there
      * 
      */
     class RenderManager {
@@ -30,6 +32,7 @@ namespace Thoth {
 
         // Default constructor
         RenderManager();
+        RenderManager(const std::string& title);
 
         // Renders the entire page into a given ostream
         virtual void RenderOutput(std::ostream& strm);
@@ -55,6 +58,9 @@ namespace Thoth {
 
     // Private variables
     private:
+
+        // Title inserted into the head
+        std::string title;
 
         // Components that make up the page
         std::vector<RenderComponent*> headComponents;
