@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.13)
 
 project(Thoth VERSION 0.0.0 LANGUAGES CXX)
 
+message(STATUS "Building with ${PROJECT_NAME} library version ${PROJECT_VERSION}")
+
 # Require C++ 17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
