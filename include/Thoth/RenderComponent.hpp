@@ -6,8 +6,8 @@
 #include <variant>
 #include <vector>
 
-#include "IndentData.hpp"
-#include "RenderElement.hpp"
+#include <Thoth/IndentData.hpp>
+#include <Thoth/RenderElement.hpp>
 
 namespace Thoth {
 

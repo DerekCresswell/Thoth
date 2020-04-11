@@ -9,7 +9,7 @@
 #include <variant>
 #include <vector>
 
-#include "IndentData.hpp"
+#include <Thoth/IndentData.hpp>
 
 namespace Thoth {
 

@@ -1,5 +1,5 @@
 
-#include "RenderManager.hpp"
+#include <Thoth/RenderManager.hpp>
 
 namespace Thoth {
 

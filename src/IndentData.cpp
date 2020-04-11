@@ -1,5 +1,5 @@
 
-#include "IndentData.hpp"
+#include <Thoth/IndentData.hpp>
 
 namespace Thoth {
 
