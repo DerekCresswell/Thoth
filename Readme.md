@@ -32,11 +32,7 @@ A part of your HTML should not be so strictly defined just from it being an atom
 For example, you may want a wrapper around certain sections of your HTML. In a typical atomic design you would create a "larger" part to hold everything you wanted to wrap.\
 In Thoth though you would instead have an element defined as a wrapper. You can then put this around a "larger" component. The reasoning for this is that the wrapper is actually a very small part even though it may have a lot of stuff inside of it.
 
-## How To Use
-
 Here is a brief overview of the three main types used to build HTML with Thoth.
-
-All code is within the `Thoth` namespace.
 
 ### RenderElement
 
@@ -62,6 +58,25 @@ The class is reusable so not every page needs an entirely seperate manager.
 
 This is the class you want an outside service, such as a server, to interact with.
 
+## Getting Started
+
+To add the Thoth library to your project it's suggested you include this via [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) if you are using git in your project.\
+To link up CMake you should just need to this to your `CMakeLists.txt` file (assuming Thoth is within the `lib` folder) :
+
+```
+add_subdirectory(lib/Thoth)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Setup your exe here.
+
+target_link_libraries(myExe PUBLIC Thoth)
+```
+
+Then you should be able to include neccesary headers by using `<Thoth/header.hpp>`.
+
 ## Name
 
 The name "Thoth" comes from the Egyptian god with the same name.
@@ -74,7 +89,6 @@ This was chosen due to the connection to writing and this project being made to 
 
 ## TODO
 
-* Add CMake file
 * Header of typical definitions (a, img, p, ...)
     * Perhaps make in this or also a "RenderSuite" header that includes all the needed stuff for quick building
 * Remove str content and replace with a no tag element
@@ -95,3 +109,6 @@ This was chosen due to the connection to writing and this project being made to 
     * Should elements cache within themselves or have a central storage in the manager?
 * Have renderer automatically link files / images from a dir to avoid hardcoded links
 * Since this uses variant, look into string_view for optimization
+* CMake
+    * See about private vs public include paths
+    * Set the standard automatically
