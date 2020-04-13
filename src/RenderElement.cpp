@@ -127,7 +127,7 @@ namespace Thoth {
         if(std::string* contentStr = std::get_if<std::string>(&content)) {
 
             // If there is no content 'contentStr' will be an empty string
-            if(hasContent = (!contentStr->empty())) {
+            if(hasContent = !contentStr->empty()) {
                 strm << "\n" << contentIndent << *contentStr << "\n";
             }
 

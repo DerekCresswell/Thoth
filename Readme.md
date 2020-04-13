@@ -96,11 +96,10 @@ This was chosen due to the connection to writing and this project being made to 
 * Debugging mode where comments appear before components, make an ifdef or as statics if set by ui
 * Replace stringstreams with ostream?
 * Allow elements to be used as a "wrapper" for other groups
-* Get a visualization for the data module
+* Get a visualization for the data model
 * Have element content rendering be seperate function to allow for easier overriding
 * Make tests folder and create tests
     * Add as examples
-* Have empty elements render on one line with no space
 * Allow for elements like br or img to render like "<xyz />"
 * Allow for comments placing (why would you manually need this but we will make it)
 * Caching
@@ -113,3 +112,5 @@ This was chosen due to the connection to writing and this project being made to 
 * CMake
     * See about private vs public include paths
     * Set the standard automatically
+* Allow for custom attributes
+    * Might call for some redoing of how the current stuff is rendered. That would reduce the hard coded nature of the current elements

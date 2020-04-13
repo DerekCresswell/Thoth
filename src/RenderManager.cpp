@@ -71,7 +71,7 @@ namespace Thoth {
 
         }
 
-        strm << "\n</head>\n\n";
+        strm << "</head>\n\n";
 
         return strm;
 

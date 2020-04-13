@@ -96,9 +96,10 @@ namespace Thoth {
         std::string FormatAttributes(const std::string& atrName, iter begin,
             iter end, const func& printFunc);
 
+    // Friends
     public:
     
-        // Marks the RenderComponent as a friend to allow for rendering
+        // Allows for rendering
         friend RenderComponent;
 
     };
