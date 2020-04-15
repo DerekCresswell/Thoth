@@ -7,6 +7,7 @@
 
 namespace Thoth {
 
+    /*
     class Class : public Attribute<std::string> {
     
     public:
@@ -17,5 +18,6 @@ namespace Thoth {
     class ID : Attribute<std::string> {};
 
     class Style : Attribute<std::pair<std::string, std::string>> {};
-    
+    */
+
 } // namespace Thoth
