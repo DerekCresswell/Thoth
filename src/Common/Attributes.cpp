@@ -3,11 +3,6 @@
 
 namespace Thoth {
 
-    /* Class */
-    //Class::Class() : Attribute<std::string>("class", false, true) {}
-
-    /* ID */
-
-    /* Style */
+// Might delete after, might be needed. Keeping for now
 
 } // namespace Thoth
