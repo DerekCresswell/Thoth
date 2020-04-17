@@ -5,8 +5,6 @@
 
 #include <Thoth/Attribute.hpp>
 
-
-// @TODO Organize alaphebtically
 namespace Thoth {
 
     class Class : public MultiValueAttribute<std::string> {
@@ -14,6 +12,10 @@ namespace Thoth {
     public:
 
         Class();
+
+    protected:
+
+        virtual std::string FormatValue(const std::string& value) override;
     
     };
 
@@ -49,6 +51,14 @@ namespace Thoth {
 
     Class::Class()
         : MultiValueAttribute<std::string>("class") {}
+
+    /* Protected */
+
+    std::string Class::FormatValue(const std::string& value) {
+
+        return value;
+
+    }
 
     /* -- ID -- */
 

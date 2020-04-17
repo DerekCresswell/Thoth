@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -9,7 +10,6 @@
  *
  * @TODO
  *  Add comments to attribute files
- *  Remove TEMP tags
  *  Figure out defining attributes at run time
  *  Implement other common attributes
  *  Expand adding / deleting values to include more convience
@@ -18,9 +18,6 @@
  *  Use conditional_t and is_fundemental_t to increase preformance of
  *  passing dataType by ref or not
  *  Ensure datatype can become string
- * 
- *  Bring template definitions back into header and get linking sorted.
- *  Probably don't bother fixing the last commit with it's uncerssary stuff
  *  
  *  Setup Elm to utilise these attributes properly 
  * 
@@ -38,7 +35,7 @@ namespace Thoth {
 
             const std::string name;
 
-        //protected:
+        protected:
 
             AttributeBase(const std::string& name);
 
@@ -58,7 +55,7 @@ namespace Thoth {
 
         StandAloneAttribute(const std::string& name);
 
-    //protected:
+    protected:
 
         virtual std::string Format() override;
 
@@ -74,11 +71,11 @@ namespace Thoth {
 
         virtual void SetValue(const dataType& value);
 
-    //protected:
+    protected:
 
         dataType value;
 
-    //protected:
+    protected:
 
         virtual std::string Format() override;
 
@@ -96,14 +93,14 @@ namespace Thoth {
 
         virtual void AddValue(const dataType& value, int position = -1);
 
-        //virtual bool RemoveValue(int position);
-        //virtual bool RemoveValue(const dataType& value);
+        virtual bool RemoveValue(int position);
+        virtual bool RemoveValue(const dataType& value);
 
-    //protected:
+    protected:
 
         std::vector<dataType> values;
 
-    //protected:
+    protected:
 
         virtual std::string Format() override;
 
@@ -177,6 +174,31 @@ namespace Thoth {
 
     }
 
+    template<typename dataType>
+    bool MultiValueAttribute<dataType>::RemoveValue(int position) {
+
+        if(position < 0 && position >= values.size())
+            return false;
+
+        values.erase(std::remove(values.begin(), values.end(), values[position]), values.end());
+
+        return true;
+
+    }
+
+    // @TODO allow removing multiple, + ensure working proper
+    template<typename dataType>
+    bool MultiValueAttribute<dataType>::RemoveValue(const dataType& value) {
+
+        auto it = values.erase(std::remove(values.begin(), values.end(), value), values.end());
+
+        if(it == values.end())
+            return false;
+
+        return true;
+
+    }
+
     /* Protected */
 
     template<typename dataType>
@@ -186,14 +208,15 @@ namespace Thoth {
 
         strm << name << "=\"";
 
-        for(const dataType& value : values) {
+        // Last element must be isolated to prevent the last space being added
+        auto lastIt = values.end();
+        lastIt--;
+        for(auto it = values.begin(); it != lastIt; it++) {
 
-            // Deal with last space
-            strm << FormatValue(value) << " ";
+            strm << FormatValue(*it) << " ";
 
         }
-
-        strm << "\"";
+        strm << FormatValue(*lastIt) << "\"";
 
         return strm.str();
 
