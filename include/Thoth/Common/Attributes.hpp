@@ -7,6 +7,32 @@
 
 namespace Thoth {
 
+    /* --- StandAloneAttributes --- */
+
+    /* --- End StandAloneAttributes --- */
+
+    /* --- SingleValueAttributes --- */
+
+    /*
+     *
+     * ID :
+     * Defines the 'id' attribute.
+     *
+     */
+    class ID : public SingleValueAttribute<std::string> {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        ID();
+
+    };
+
+    /* --- End SingleValueAttributes --- */
+
+    /* --- MultiValueAttributes --- */
+
     /*
      *
      * Class :
@@ -27,22 +53,6 @@ namespace Thoth {
         // Overrides MultiValueAttribute::FormatValue
         // By default formats as 'class="value"' (less outer quotes)
         virtual std::string FormatValue(const std::string& value) override;
-
-    };
-
-    /*
-     *
-     * ID :
-     * Defines the 'id' attribute.
-     *
-     */
-    class ID : public SingleValueAttribute<std::string> {
-
-    // Public functions
-    public:
-
-        // Default constructor
-        ID();
 
     };
 
@@ -71,11 +81,31 @@ namespace Thoth {
 
     };
 
+    /* --- End MultiValueAttributes --- */
+
 } // namespace Thoth
 
 /* --- Template Definitions --- */
 
 namespace Thoth {
+
+    /* --- StandAloneAttributes --- */
+
+    /* --- End StandAloneAttributes --- */
+
+    /* --- SingleValueAttributes --- */
+
+    /* -- ID -- */
+
+    /* Public */
+
+    // Constructs an empty id attribute
+    ID::ID()
+        : SingleValueAttribute<std::string>("id") {}
+
+    /* --- End SingleValueAttributes --- */
+
+    /* --- MultiValueAttributes --- */
 
     /* -- Class -- */
 
@@ -94,14 +124,6 @@ namespace Thoth {
 
     }
 
-    /* -- ID -- */
-
-    /* Public */
-
-    // Constructs an empty id attribute
-    ID::ID()
-        : SingleValueAttribute<std::string>("id") {}
-
     /* -- Style -- */
 
     /* Public */
@@ -119,5 +141,7 @@ namespace Thoth {
         return value.first + ":" + value.second + ";";
 
     }
+
+    /* --- End MultiValueAttributes --- */
 
 } // namespace Thoth

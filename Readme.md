@@ -112,5 +112,4 @@ This was chosen due to the connection to writing and this project being made to 
 * CMake
     * See about private vs public include paths
     * Set the standard automatically
-* Allow for custom attributes
-    * Might call for some redoing of how the current stuff is rendered. That would reduce the hard coded nature of the current elements
+* Add comment blocks to top of headers with overall idea

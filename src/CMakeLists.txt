@@ -9,5 +9,3 @@ set(Sources
 )
 
 target_sources(${PROJECT_NAME} PRIVATE ${Sources})
-
-add_subdirectory(Common)

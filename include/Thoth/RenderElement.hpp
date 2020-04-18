@@ -60,7 +60,7 @@ namespace Thoth {
         // Removes the inline style from an element using the property
         RenderElement& RemoveStyle(const std::string& property);
 
-    // Protected member variables
+    // Protected variables
     protected:
 
         // The HTML tag of this element

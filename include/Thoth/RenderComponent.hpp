@@ -24,7 +24,7 @@ namespace Thoth {
      */
     class RenderComponent {
 
-    // Public member variables
+    // Public variables
     public:
 
         // The indent style used when rendering
@@ -54,7 +54,7 @@ namespace Thoth {
         // Sets the indentation style of this component
         void SetIndentation(IndentStyle style, unsigned int size);
 
-    // Private member variables
+    // Private variables
     private:
 
         // The elements that define the render output of
