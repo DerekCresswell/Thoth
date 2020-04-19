@@ -42,21 +42,21 @@ namespace Thoth {
         // Constructor that takes content immediately
         RenderElement(const std::string& tag, const contentType& content);
 
-        // Adds an attribute of type 'atrType' to the element and returns a
+        // Adds an attribute of type 'AttrType' to the element and returns a
         // pointer to it
         // If that attribute type is already present this will just return
         // a pointer to that attribut
-        template<class atrType>
-        std::shared_ptr<atrType> AddAttribute();
+        template<class AttrType>
+        std::shared_ptr<AttrType> AddAttribute();
 
-        // Retrieves an attribute of type 'atrType'
+        // Retrieves an attribute of type 'AttrType'
         // Returns 'nullptr' if the attribute is not found
-        template<class atrType>
-        std::shared_ptr<atrType> GetAttribute();
+        template<class AttrType>
+        std::shared_ptr<AttrType> GetAttribute();
 
-        // Deletes an attribute of type 'atrType' and returns a boolean based
+        // Deletes an attribute of type 'AttrType' and returns a boolean based
         // on whether anything was removed
-        template<class atrType>
+        template<class AttrType>
         bool RemoveAttribute();
 
     // Protected variables
@@ -98,38 +98,38 @@ namespace Thoth {
 
     /* Public */
 
-    // Adds an attribute to this element of type 'atrType'
-    template<class atrType>
-    std::shared_ptr<atrType> RenderElement::AddAttribute() {
+    // Adds an attribute to this element of type 'AttrType'
+    template<class AttrType>
+    std::shared_ptr<AttrType> RenderElement::AddAttribute() {
 
         // First check for an existing attribute of the type
-        if(std::shared_ptr<atrType> atr = GetAttribute<atrType>()) {
+        if(std::shared_ptr<AttrType> attr = GetAttribute<AttrType>()) {
 
-            return atr;
+            return attr;
 
         } else {
 
-            atr = std::make_shared<atrType>();
-            attributes.push_back(atr);
-            return atr;
+            attr = std::make_shared<AttrType>();
+            attributes.push_back(attr);
+            return attr;
 
         }
 
     }
 
-    // Gets the attribute of type 'atrType' on this element
+    // Gets the attribute of type 'AttrType' on this element
     // Returns 'nullptr' if it's not found
-    template<class atrType>
-    std::shared_ptr<atrType> RenderElement::GetAttribute() {
+    template<class AttrType>
+    std::shared_ptr<AttrType> RenderElement::GetAttribute() {
 
-        // Check that 'atrType' is an attribute
+        // Check that 'AttrType' is an attribute
         // Only needed here as the other attribute functions all this
-        static_assert(std::is_base_of<Detail::AttributeBase, atrType>::value,
-            "'atrType' must derive from 'Detail::AttributeBase'");
+        static_assert(std::is_base_of<Detail::AttributeBase, AttrType>::value,
+            "'AttrType' must derive from 'Detail::AttributeBase'");
 
-        for(std::shared_ptr<Detail::AttributeBase>& atr : attributes) {
+        for(std::shared_ptr<Detail::AttributeBase>& attr : attributes) {
 
-            std::shared_ptr<atrType> castedPtr = std::dynamic_pointer_cast<atrType>(atr);
+            std::shared_ptr<AttrType> castedPtr = std::dynamic_pointer_cast<AttrType>(attr);
 
             // @TODO this will allow derived classes to be used
             //   ie (dd : d) but asking for d will return dd
@@ -143,13 +143,13 @@ namespace Thoth {
 
     }
 
-    // Removes an attribute of type 'atrType' from this element
-    template<class atrType>
+    // Removes an attribute of type 'AttrType' from this element
+    template<class AttrType>
     bool RenderElement::RemoveAttribute() {
 
-        if(std::shared_ptr<atrType> atr = GetAttribute<atrType>()) {
+        if(std::shared_ptr<AttrType> attr = GetAttribute<AttrType>()) {
 
-            attributes.erase(atr);
+            attributes.erase(attr);
             return true;
 
         }
