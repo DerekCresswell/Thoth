@@ -25,8 +25,6 @@ namespace Thoth {
      * a RenderComponent.
      *
      * @TODO
-     *  Add other similar identifiers.
-     *  Adds checks for delimiters in AddClass strings
      *  Seperate content rendering into seperate function for easier overriding
      *
      */

@@ -18,10 +18,6 @@
  *  Use conditional_t and is_fundemental_t to increase preformance of
  *  passing dataType by ref or not
  *  Ensure datatype can become string
- *  Organize Attributes by type too
- *  Add chaining to add, remove, etc
- *
- *  Setup Elm to utilise these attributes properly
  *
  */
 
@@ -113,7 +109,7 @@ namespace Thoth {
         SingleValueAttribute(const std::string& name, const dataType& value);
 
         // Sets the value of this attribute
-        virtual void SetValue(const dataType& value);
+        virtual SingleValueAttribute& SetValue(const dataType& value);
 
     // Protected variables
     protected:
@@ -151,16 +147,15 @@ namespace Thoth {
 
         // Sets the values vector directly
         // Does not perserve previous values
-        virtual void SetValues(const std::vector<dataType>& values);
+        virtual MultiValueAttribute& SetValues(const std::vector<dataType>& values);
 
         // Adds a value to this attributes values
         // Optionally specify a position for it to be put in at (default is last)
-        virtual void AddValue(const dataType& value, int position = -1);
+        virtual MultiValueAttribute& AddValue(const dataType& value, int position = -1);
 
         // Removes a value from this attributes values by position or value
-        // Returns a boolean based on whether an element was actually removed
-        virtual bool RemoveValue(int position);
-        virtual bool RemoveValue(const dataType& value);
+        virtual MultiValueAttribute& RemoveValue(int position);
+        virtual MultiValueAttribute& RemoveValue(const dataType& value);
 
     // Protected variables
     protected:
@@ -203,9 +198,12 @@ namespace Thoth {
 
     // Sets the value of this attribute
     template<typename dataType>
-    void SingleValueAttribute<dataType>::SetValue(const dataType& value) {
+    SingleValueAttribute<dataType>& SingleValueAttribute<dataType>::SetValue(
+        const dataType& value) {
 
         this->value = value;
+
+        return *this;
 
     }
 
@@ -237,15 +235,19 @@ namespace Thoth {
 
     // Directly sets the value list of this attribute
     template<typename dataType>
-    void MultiValueAttribute<dataType>::SetValues(const std::vector<dataType>& values) {
+    MultiValueAttribute<dataType>& MultiValueAttribute<dataType>::SetValues(
+        const std::vector<dataType>& values) {
 
         this->values = values;
+
+        return *this;
 
     }
 
     // Adds a value to this attributes list
     template<typename dataType>
-    void MultiValueAttribute<dataType>::AddValue(const dataType& value, int position) {
+    MultiValueAttribute<dataType>& MultiValueAttribute<dataType>::AddValue(
+        const dataType& value, int position) {
 
         // If position is not set use 'push_back'
         if(position < 0) {
@@ -254,19 +256,23 @@ namespace Thoth {
             values.insert(values.begin() + position, value);
         }
 
+        return *this;
+
     }
 
     // Removes a value from this attributes list by position
     template<typename dataType>
-    bool MultiValueAttribute<dataType>::RemoveValue(int position) {
+    MultiValueAttribute<dataType>& MultiValueAttribute<dataType>::RemoveValue(
+        int position) {
 
         // Ensure the position is valid
-        if(position < 0 && position >= values.size())
-            return false;
+        if(position > 0 && position < values.size()) {
 
-        values.erase(values.begin() + position);
+            values.erase(values.begin() + position);
 
-        return true;
+        }
+
+        return *this;
 
     }
 
@@ -275,14 +281,15 @@ namespace Thoth {
     //   allow removing multiple, + ensure working proper
     //   Add checks for seeing if element was removed
     template<typename dataType>
-    bool MultiValueAttribute<dataType>::RemoveValue(const dataType& value) {
+    MultiValueAttribute<dataType>& MultiValueAttribute<dataType>::RemoveValue(
+        const dataType& value) {
 
         // Try erasing value
         auto it = values.erase(std::remove(values.begin(), values.end(), value), values.end());
 
         // Check if value was found
 
-        return true;
+        return *this;
 
     }
 
