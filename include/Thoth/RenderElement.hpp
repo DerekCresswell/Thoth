@@ -4,11 +4,13 @@
 #include <algorithm>
 #include <functional>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <variant>
 #include <vector>
 
+#include <Thoth/Attribute.hpp>
 #include <Thoth/IndentData.hpp>
 
 namespace Thoth {
@@ -18,10 +20,10 @@ namespace Thoth {
 
     /*
      *
-     * RenderElement : 
+     * RenderElement :
      * Defines an element of HMTL that can be rendered by
      * a RenderComponent.
-     * 
+     *
      * @TODO
      *  Add other similar identifiers.
      *  Adds checks for delimiters in AddClass strings
@@ -32,7 +34,7 @@ namespace Thoth {
 
     // Short name for allowed content types
     using contentType = std::variant<std::string, RenderElement*>;
- 
+
     // Public functions
     public:
 
@@ -42,23 +44,21 @@ namespace Thoth {
         // Constructor that takes content immediately
         RenderElement(const std::string& tag, const contentType& content);
 
-        // Adds a class (or classes) to this element
-        RenderElement& AddClass(const std::string& toAdd);
-        RenderElement& AddClass(const std::vector<std::string>& toAdd);
+        // Adds an attribute of type 'atrType' to the element and returns a
+        // pointer to it
+        // If that attribute type is already present this will just return
+        // a pointer to that attribut
+        template<class atrType>
+        std::shared_ptr<atrType> AddAttribute();
 
-        // Removes a class (or classes) from this element
-        // If a class is not present it is ignored
-        RenderElement& RemoveClass(const std::string& toRem);
-        RenderElement& RemoveClass(const std::vector<std::string>& toRem);
+        // @TODO Utilise static_assert to ensure these are AtrBase
+        template<class atrType>
+        std::shared_ptr<atrType> GetAttribute();
 
-        // Adds the style to this element's inline style
-        // Will not add the element if the property is already defined
-        // unless 'force' is true
-        RenderElement& AddStyle(const std::string& property, const std::string& value,
-            bool force = false);
-        
-        // Removes the inline style from an element using the property
-        RenderElement& RemoveStyle(const std::string& property);
+        // Deletes an attribute of type 'atrType' and returns a boolean based
+        // on whether anything was removed
+        template<class atrType>
+        bool RemoveAttribute();
 
     // Protected variables
     protected:
@@ -66,15 +66,11 @@ namespace Thoth {
         // The HTML tag of this element
         const std::string tag;
 
-        // Defines the inline styling of this element
-        // in the form of <property, value>
-        std::map<std::string, std::string> styles;
-
         // The content inserted into the element
         contentType content;
 
-        // The classes added to the element's tag
-        std::vector<std::string> classes;
+        // Attributes of this element
+        std::vector<std::shared_ptr<Detail::AttributeBase>> attributes;
 
     // Protected functions
     protected:
@@ -87,21 +83,71 @@ namespace Thoth {
         // Takes an IndentData to define the amount of indentation applied
         void RenderOutput(std::stringstream& strm, IndentData indentData = NO_INDENT);
 
-    // Private functions
-    private:
-
-        // Prints out an attribute by using the function 'printFunc' on each
-        // element between 'begin' and 'end'
-        template<class iter, class func>
-        std::string FormatAttributes(const std::string& atrName, iter begin,
-            iter end, const func& printFunc);
-
     // Friends
     public:
-    
+
         // Allows for rendering
         friend RenderComponent;
 
     };
+
+} // namespace Thoth
+
+/* --- Template Definitions --- */
+
+namespace Thoth {
+
+    /* Public */
+
+    template<class atrType>
+    std::shared_ptr<atrType> RenderElement::AddAttribute() {
+
+        if(std::shared_ptr<atrType> atr = GetAttribute<atrType>()) {
+
+            return atr;
+
+        } else {
+
+
+            atr = std::make_shared<atrType>();
+            attributes.push_back(atr);
+            return atr;
+
+        }
+
+    }
+
+    template<class atrType>
+    std::shared_ptr<atrType> RenderElement::GetAttribute() {
+
+        for(std::shared_ptr<Detail::AttributeBase>& atr : attributes) {
+
+            std::shared_ptr<atrType> castedPtr = std::dynamic_pointer_cast<atrType>(atr);
+
+            // @TODO this will allow derived classes to be used
+            //   ie (dd : d) but asking for d will return dd
+            if(castedPtr) {
+                return castedPtr;
+            }
+
+        }
+
+        return nullptr;
+
+    }
+
+    template<class atrType>
+    bool RenderElement::RemoveAttribute() {
+
+        if(std::shared_ptr<atrType> atr = GetAttribute<atrType>()) {
+
+            attributes.erase(atr);
+            return true;
+
+        }
+
+        return false;
+
+    }
 
 } // namespace Thoth

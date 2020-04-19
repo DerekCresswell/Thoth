@@ -19,6 +19,7 @@
  *  passing dataType by ref or not
  *  Ensure datatype can become string
  *  Organize Attributes by type too
+ *  Add chaining to add, remove, etc
  *
  *  Setup Elm to utilise these attributes properly
  *
