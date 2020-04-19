@@ -49,7 +49,8 @@ namespace Thoth {
         template<class atrType>
         std::shared_ptr<atrType> AddAttribute();
 
-        // @TODO Utilise static_assert to ensure these are AtrBase
+        // Retrieves an attribute of type 'atrType'
+        // Returns 'nullptr' if the attribute is not found
         template<class atrType>
         std::shared_ptr<atrType> GetAttribute();
 
@@ -97,15 +98,16 @@ namespace Thoth {
 
     /* Public */
 
+    // Adds an attribute to this element of type 'atrType'
     template<class atrType>
     std::shared_ptr<atrType> RenderElement::AddAttribute() {
 
+        // First check for an existing attribute of the type
         if(std::shared_ptr<atrType> atr = GetAttribute<atrType>()) {
 
             return atr;
 
         } else {
-
 
             atr = std::make_shared<atrType>();
             attributes.push_back(atr);
@@ -115,8 +117,15 @@ namespace Thoth {
 
     }
 
+    // Gets the attribute of type 'atrType' on this element
+    // Returns 'nullptr' if it's not found
     template<class atrType>
     std::shared_ptr<atrType> RenderElement::GetAttribute() {
+
+        // Check that 'atrType' is an attribute
+        // Only needed here as the other attribute functions all this
+        static_assert(std::is_base_of<Detail::AttributeBase, atrType>::value,
+            "'atrType' must derive from 'Detail::AttributeBase'");
 
         for(std::shared_ptr<Detail::AttributeBase>& atr : attributes) {
 
@@ -134,6 +143,7 @@ namespace Thoth {
 
     }
 
+    // Removes an attribute of type 'atrType' from this element
     template<class atrType>
     bool RenderElement::RemoveAttribute() {
 
