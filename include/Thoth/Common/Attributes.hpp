@@ -9,9 +9,57 @@ namespace Thoth {
 
     /* --- StandAloneAttributes --- */
 
+    /*
+     *
+     * Hidden :
+     * Defines the 'hidden' attribute.
+     *
+     */
+    class Hidden : public StandAloneAttribute {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        Hidden();
+
+    };
+
     /* --- End StandAloneAttributes --- */
 
     /* --- SingleValueAttributes --- */
+
+    /*
+     *
+     * Alt :
+     * Defines the 'alt' attribute.
+     *
+     */
+    class Alt : public SingleValueAttribute<std::string> {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        Alt();
+
+    };
+
+    /*
+     *
+     * Href :
+     * Defines the 'href' attribute.
+     *
+     */
+    class Href : public SingleValueAttribute<std::string> {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        Href();
+
+    };
 
     /*
      *
@@ -26,6 +74,54 @@ namespace Thoth {
 
         // Default constructor
         ID();
+
+    };
+
+    /*
+     *
+     * Name :
+     * Defines the 'name' attribute.
+     *
+     */
+    class Name : public SingleValueAttribute<std::string> {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        Name();
+
+    };
+
+    /*
+     *
+     * Title :
+     * Defines the 'title' attribute.
+     *
+     */
+    class Title : public SingleValueAttribute<std::string> {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        Title();
+
+    };
+
+    /*
+     *
+     * Value :
+     * Defines the 'value' attribute.
+     *
+     */
+    class Value : public SingleValueAttribute<std::string> {
+
+    // Public functions
+    public:
+
+        // Default constructor
+        Value();
 
     };
 
@@ -91,9 +187,33 @@ namespace Thoth {
 
     /* --- StandAloneAttributes --- */
 
+    /* -- Hidden -- */
+
+    /* Public */
+
+    // Constructs an empty hidden attribute
+    Hidden::Hidden()
+        : StandAloneAttribute("hidden") {}
+
     /* --- End StandAloneAttributes --- */
 
     /* --- SingleValueAttributes --- */
+
+    /* -- Alt -- */
+
+    /* Public */
+
+    // Constructs an empty alt attribute
+    Alt::Alt()
+        : SingleValueAttribute<std::string>("alt") {}
+
+    /* -- Href -- */
+
+    /* Public */
+
+    // Constructs an empty href attribute
+    Href::Href()
+        : SingleValueAttribute<std::string>("href") {}
 
     /* -- ID -- */
 
@@ -102,6 +222,30 @@ namespace Thoth {
     // Constructs an empty id attribute
     ID::ID()
         : SingleValueAttribute<std::string>("id") {}
+
+    /* -- Name -- */
+
+    /* Public */
+
+    // Constructs an empty name attribute
+    Name::Name()
+        : SingleValueAttribute<std::string>("Name") {}
+
+    /* -- Title -- */
+
+    /* Public */
+
+    // Constructs an empty title attribute
+    Title::Title()
+        : SingleValueAttribute<std::string>("title") {}
+
+    /* -- Value -- */
+
+    /* Public */
+
+    // Constructs an empty value attribute
+    Value::Value()
+        : SingleValueAttribute<std::string>("value") {}
 
     /* --- End SingleValueAttributes --- */
 

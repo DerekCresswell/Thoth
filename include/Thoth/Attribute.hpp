@@ -18,6 +18,8 @@
  *  Use conditional_t and is_fundemental_t to increase preformance of
  *  passing DataType by ref or not
  *  Ensure DataType can become string
+ *  Add checks for attributes specific to one type of element
+ *  Should commons be in "Thoth::Common" or "Thoth::Attributes"
  *
  */
 
@@ -35,13 +37,15 @@ namespace Thoth {
          * to a RenderElement.
          * Rendering capablities are accessible through the RenderElement.
          *
+         * All classes inheriting from this must have a defualt construtor.
+         *
          */
         class AttributeBase {
 
         // Public variables
         public:
 
-            // The name tof the attribute
+            // The name of the attribute
             // I.E. "class", "id"
             const std::string name;
 
@@ -298,6 +302,9 @@ namespace Thoth {
     // Renders this attribute and returns it as a string
     template<typename DataType>
     std::string MultiValueAttribute<DataType>::Format() {
+
+        if(values.size() == 0)
+            return "";
 
         std::stringstream strm;
 
