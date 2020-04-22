@@ -45,7 +45,7 @@ namespace Thoth {
         // Adds an attribute of type 'AttrType' to the element and returns a
         // pointer to it
         // If that attribute type is already present this will just return
-        // a pointer to that attribut
+        // a pointer to that attribute
         template<class AttrType>
         std::shared_ptr<AttrType> AddAttribute();
 

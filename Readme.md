@@ -107,6 +107,7 @@ This was chosen due to the connection to writing and this project being made to 
     * Variable data elements will be cached once when the render manager is used
     * Should elements cache within themselves or have a central storage in the manager?
     * Indentation would have to be differnent, setwidth might help
+        * Option for zero indentation or new lines? Could help if not storing html
 * Have renderer automatically link files / images from a dir to avoid hardcoded links
 * Since this uses variant, look into string_view for optimization
 * CMake

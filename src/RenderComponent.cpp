@@ -26,6 +26,32 @@ namespace Thoth {
 
     }
 
+    // Removes an element by position
+    RenderComponent& RenderComponent::RemoveElement(int position) {
+
+        if(position < 0 || position >= elements.size()) {
+            elements.erase(elements.begin() + position);
+        }
+
+        return *this;
+
+    }
+
+    // Removes an element by value
+    RenderComponent& RenderComponent::RemoveElement(RenderElement elmToRemove) {
+
+        return RemoveElement(&elmToRemove);
+    }
+
+    // Removes an element by pointer
+    RenderComponent& RenderComponent::RemoveElement(RenderElement* elmToRemove) {
+
+        elements.erase(std::remove(elements.begin(), elements.end(), elmToRemove), elements.end());
+
+        return *this;
+
+    }
+
     // Render the output of all the elements making up this component
     std::stringstream RenderComponent::RenderOutput() {
 
