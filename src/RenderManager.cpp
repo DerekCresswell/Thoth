@@ -38,6 +38,28 @@ namespace Thoth {
 
     }
 
+    // Removes a component from the head at a given position
+    RenderManager& RenderManager::RemoveFromHead(int position) {
+
+        // Ensure position is valid
+        if(position >= 0 && position < headComponents.size()) {
+            headComponents.erase(headComponents.begin() + position);
+        }
+
+        return *this;
+
+    }
+
+    // Removes a component from the head by value
+    RenderManager& RenderManager::RemoveFromHead(const RenderComponent& compToRem) {
+
+        headComponents.erase(std::remove(headComponents.begin(), headComponents.end(),
+            &compToRem), headComponents.end());
+
+        return *this;
+
+    }
+
     // Adds a component to the body at a given position
     RenderManager& RenderManager::AddToBody(RenderComponent* compToAdd, int position) {
 
@@ -46,6 +68,28 @@ namespace Thoth {
         } else {
             bodyComponents.insert(bodyComponents.begin() + position, compToAdd);
         }
+
+        return *this;
+
+    }
+
+    // Removes a component from the body at a given position
+    RenderManager& RenderManager::RemoveFromBody(int position) {
+
+        // Ensure position is valid
+        if(position >= 0 && position < bodyComponents.size()) {
+            bodyComponents.erase(bodyComponents.begin() + position);
+        }
+
+        return *this;
+
+    }
+
+    // Removes a component from the body by value
+    RenderManager& RenderManager::RemoveFromBody(const RenderComponent& compToRem) {
+
+        bodyComponents.erase(std::remove(bodyComponents.begin(), bodyComponents.end(),
+            &compToRem), bodyComponents.end());
 
         return *this;
 

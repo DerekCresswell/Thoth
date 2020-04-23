@@ -38,13 +38,13 @@ namespace Thoth {
     }
 
     // Removes an element by value
-    RenderComponent& RenderComponent::RemoveElement(RenderElement elmToRemove) {
+    RenderComponent& RenderComponent::RemoveElement(const RenderElement& elmToRemove) {
 
         return RemoveElement(&elmToRemove);
     }
 
     // Removes an element by pointer
-    RenderComponent& RenderComponent::RemoveElement(RenderElement* elmToRemove) {
+    RenderComponent& RenderComponent::RemoveElement(const RenderElement* elmToRemove) {
 
         elements.erase(std::remove(elements.begin(), elements.end(), elmToRemove), elements.end());
 

@@ -46,8 +46,8 @@ namespace Thoth {
 
         // Removes an element from the render list by position or value
         RenderComponent& RemoveElement(int position);
-        RenderComponent& RemoveElement(RenderElement elmToRemove);
-        RenderComponent& RemoveElement(RenderElement* elmToRemove);
+        RenderComponent& RemoveElement(const RenderElement& elmToRemove);
+        RenderComponent& RemoveElement(const RenderElement* elmToRemove);
 
         // Renders all of the elements in the render list
         // as a stringstream

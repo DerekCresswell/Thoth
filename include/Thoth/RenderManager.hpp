@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <ostream>
 #include <sstream>
 #include <vector>
@@ -13,7 +14,7 @@ namespace Thoth {
      *
      * RenderManager :
      * Defines an entire page of HTML to be rendered.
-     * 
+     *
      * @TODO
      *  Provide some variables to define details about the page
      *  that are for human readability.
@@ -23,7 +24,7 @@ namespace Thoth {
      *    manager directly
      *  Add better data insertion for head / html elements
      *  Create overload for head elements and streamline input there
-     * 
+     *
      */
     class RenderManager {
 
@@ -41,9 +42,19 @@ namespace Thoth {
         // Defaults to the end of the list
         RenderManager& AddToHead(RenderComponent* compToAdd, int position = -1);
 
+        // Removes a component from the head of this manager at a given
+        // position or by value
+        RenderManager& RemoveFromHead(int position);
+        RenderManager& RemoveFromHead(const RenderComponent& compToRem);
+
         // Adds a component to the body of this manager at the given position
         // Defaults to the end of the list
         RenderManager& AddToBody(RenderComponent* compToAdd, int position = -1);
+
+        // Removes a component from the body of this manager at a given
+        // position or by value
+        RenderManager& RemoveFromBody(int position);
+        RenderManager& RemoveFromBody(const RenderComponent& compToRem);
 
     // Protected functions
     protected:
