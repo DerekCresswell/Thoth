@@ -1,0 +1,13 @@
+/[Bb]uild
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
