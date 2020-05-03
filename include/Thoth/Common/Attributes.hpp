@@ -229,7 +229,7 @@ namespace Thoth {
 
     // Constructs an empty name attribute
     Name::Name()
-        : SingleValueAttribute<std::string>("Name") {}
+        : SingleValueAttribute<std::string>("name") {}
 
     /* -- Title -- */
 
