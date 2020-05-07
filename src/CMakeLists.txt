@@ -8,4 +8,7 @@ set(Sources
     RenderManager.cpp
 )
 
-target_sources(${PROJECT_NAME} PRIVATE ${Sources})
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        ${Sources}
+)

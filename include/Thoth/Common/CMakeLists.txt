@@ -4,4 +4,7 @@ set(Common_Includes
     Attributes.hpp
 )
 
-target_sources(${PROJECT_NAME} PRIVATE ${Common_Includes})
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        ${Common_Includes}
+)

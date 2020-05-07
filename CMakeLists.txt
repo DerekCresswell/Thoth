@@ -37,7 +37,10 @@ set(/dir_path_(Sources||Includes)/
     # ...
 )
 
-target_sources(${PROJECT_NAME} PRIVATE ${/dir_path_(Sources||Includes)/})
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        ${/dir_path_(Sources||Includes)/}
+)
 
 # Add any subdirectories
 
@@ -49,4 +52,5 @@ target_sources(${PROJECT_NAME} PRIVATE ${/dir_path_(Sources||Includes)/})
 #   or include) seperated with underscores. Finally it should conclude with
 #   Sources or Includes depending on which directory it hails from.
 # * Then set the Thoth library to include these sources.
+#   * Apply the indentation shown in the example.
 # * Then add any subdirectories of the file.

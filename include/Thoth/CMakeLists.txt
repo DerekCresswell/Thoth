@@ -8,6 +8,9 @@ set(Includes
     RenderManager.hpp
 )
 
-target_sources(${PROJECT_NAME} PRIVATE ${Includes})
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        ${Includes}
+)
 
 add_subdirectory(Common)
